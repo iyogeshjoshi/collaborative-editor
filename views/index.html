@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="realTimeEdit">
+<head>
+    <title>title</title>
+    <link rel='stylesheet' href='vendors/semantic-ui/css/semantic.min.css'/>
+    <link rel='stylesheet' href='/public/vendors/semantic-ui/css/semantic.min.css'/>
+
+    <script src="vendors/jquery-1.10.2.js"></script>
+    <script src="vendors/jquery-ui.min.js"></script>
+    <script src="vendors/Hallo/rangy-core.js"></script>
+    <script src="vendors/semantic-ui/javascript/semantic.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" href="vendors/Hallo/smoothness/jquery-ui-1.10.3.custom.min.css"/>
+    <link rel="stylesheet" href="vendors/Hallo/font-awesome/css/font-awesome.min.css"/>
+    <!--<link rel="stylesheet" href="stylesheets/style.css" />-->
+
+    <script src="vendors/ace.js"></script>
+    <script src="vendors/Hallo/hallo.js"></script>
+    <script src="/channel/bcsocket.js"></script>
+    <script src="/share/share.js"></script>
+    <script src="/share/ace.js"></script>
+    <script src="vendors/angular/angular.js"></script>
+
+    <script src="javascripts/Router.js"></script>
+    <script src="javascripts/Controller.js"></script>
+
+    <style>
+        .editor {
+            position: relative;
+            height: 400px;
+        }
+    </style>
+
+</head>
+<body ng-controller="MainCtrl" class="container">
+<header>
+    <nav></nav>
+</header>
+<section class="ui segment">
+    <h1 class="ui teal header">Collaborative Text Editor</h1>
+
+    <div class="ui grid">
+        <article class="twelve column wide">
+            <div class="ui top floated mini icon input">
+                <input placeholder="File Name !" type="text" ng-model="file" ng-change="getFileContent()"/>
+                <i class="doc icon"></i>
+            </div>
+            <div class="ui segment editor" id="editor">this is editor tab</div>
+        </article>
+        <aside class="four column wide">
+            <div class="ui segment editor">
+                <div class="ui top floated mini icon input">
+                    <input placeholder="Your Name !" type="text" ng-model="username"/>
+                    <i class="user icon"></i>
+                </div>
+                <div class="ui inverted">
+                    <div class="ui inverted relaxed divided list">
+                        <div class="item">
+                            <div class="content">
+                                <div class="header">Snickerdoodle</div>
+                                An excellent companion
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="content">
+                                <div class="header">Poodle</div>
+                                A poodle, its pretty basic
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="content">
+                                <div class="header">Paulo</div>
+                                He's also a dog
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui bottom floated mini icon input">
+                    <input placeholder="Updates . . ." type="text" ng-model="chat"/>
+                    <i class="chat icon"></i>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+<footer></footer>
+
+<script>
+        var editor = ace.edit("editor");
+    $('.editable').hallo({
+        plugins: {
+            'halloformat': {},
+            'halloblock': {},
+            'hallojustify': {},
+            'hallolists': {},
+            'hallolink': {},
+            'halloreundo': {}
+        },
+        editable: true
+    });
+//    var editor = document.getElementById('editor');
+//    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+
+    sharejs.open('test', 'text', function (error, doc) {
+        console.log(doc);
+        doc.attach_ace(editor);
+    });
+</script>
+</body>
+</html>
