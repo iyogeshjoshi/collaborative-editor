@@ -8,4 +8,4 @@ Go to root folder using terminal or command prompt then run the following comman
   
   node app.js
   
-Yo! your app is ready to go open your browser and visit <a href="http://localhost:3000">http://localhost:3000</a>
+Yo! your app is ready to go open your browser and visit http://localhost:3000
